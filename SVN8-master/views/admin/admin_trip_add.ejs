@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="assets/styles.css" />
+    <title>CREATE TRIP</title>
+
+</head>
+<script>
+    function trimInput() {
+        let isNum = true;
+        $(".input").each(function(index, val){
+            const inputValue =  $(this).val().trim();
+            const name = $(this).attr('name');
+            $(this).val(inputValue);
+            if (name == "fuelCost"){
+                isNum = isNum && !isNaN($(this).val());
+            }
+        });
+        if (!isNum) {
+            $(".input").each(function(index, val){
+                $(this).val("");
+            });
+            alert("You must enter the right format of the input!");
+        }
+    }
+    
+</script>
+<body>
+    <div class="hero">
+        <nav>
+            <div class="nav__header">
+                <div class="logo nav__logo">
+                    <a href="admin_page">SVN8<span>TEAM</span></a>
+                </div>
+                <div class="nav__menu__btn" id="menu-btn">
+                    <span><i class="ri-menu-line"></i></span>
+                </div>
+            </div>
+    
+            <ul class="nav__links" id="nav-links">
+                <li><a href="admin_vehicle">Vehicle</a></li>
+                <li><a href="admin_driver">Driver</a></li>
+                <li><a href="admin_trip">Trip</a></li>
+                <li><a href="admin_report">Team report</a></li>
+            </ul>
+    
+            <i class="ri-account-circle-fill ri-2x" onclick="toggleMenu()"></i>
+
+            <div class="sub-menu-wrap" id="subMenu">
+                <div class="sub-menu">
+
+                <div class="user-info">
+                    <i class="ri-user-2-fill ri-2x"></i>
+                    <p> <%- admin.name %> </p>
+                </div>
+
+                <hr>
+
+                <a href="#" class="sub-menu-link">
+                    <i class="ri-id-card-line ri-2x"></i>
+                    <p>Dashboard</p>
+                </a>
+
+                <a href=".." class="sub-menu-link">
+                    <i class="ri-logout-box-r-line ri-2x"></i>
+                    <p>Log Out</p>
+                </a>
+                </div>
+            </div>
+        </nav>
+    </div>
+    
+    <header class="section__container header__container" id="home">
+        <div class="header__image">
+            <img src="assets/landing_page/img/header.png" alt="header" />
+        </div>
+        <div class="header__content">
+            <h1>Trip Monitoring</h1>
+        </div>
+    </header>
+    <section class="section__container special__container" id="special">
+        <h2 class="section__header">Create a new trip:</h2>
+    </section>
+
+    <div class="container">
+        <form action="./create-new-trip" method="post">
+            <div class="formfirst">
+                <div class="details">
+                    <div class="fields">
+                        <div class="input-field">
+                            <label>Driver ID:</label>
+                            <input class="input" type="text" placeholder="Enter Driver ID" name="driverId" required>
+                        </div>
+                        <div class="input-field">
+                            <label>Vehicle ID:</label>
+                            <input class="input" type="text" placeholder="Enter Vehicle ID" name="vehicleId" required>
+                        </div>
+                        <div class="input-field">
+                            <label>Departure time:</label>
+                            <input class="input" type="date" placeholder="Enter Departure time:" name="departureTime" required>
+                        </div>
+                        <div class="input-field">
+                            <label>Arrival time:</label>
+                            <input class="input" type="date" placeholder="Enter Arrival time" name="arrivalTime" required>
+                        </div>
+                        <div class="input-field">
+                            <label>Departure:</label>
+                            <input class="input" type="text" placeholder="Enter Departure" name="departure" required>
+                        </div>
+                        <div class="input-field">
+                            <label>Destination:</label>
+                            <input class="input" type="text" placeholder="Enter Destination" name="destination" required>
+                        </div>
+                        <div class="input-field">
+                            <label>Fuel cost:</label>
+                            <input class="input" type="text" placeholder="Enter Fuel cost" name="fuelCost" required>
+                        </div>
+                    </div>
+                    <button class="nextBtn" type="submit" onclick="trimInput()">
+                        <span class="btnNext">Save</span>
+                        <i class="uil uil-navigator"></i>
+                    </button>
+                </div>
+            </div>
+
+
+        </form>
+    </div>
+
+    <footer class="footer" id="contact">
+        <div class="footer__bar">
+            Copyright © 2024 SVN8. All rights reserved.
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/scrollreveal"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="assets/main.js"></script>
+    <script>
+        if(!<%- check %>) alert("No driverId found!");
+        if(!<%- checkDate %>) alert("Departure time must be before arrival time!");
+    </script>
+</body>
+
+</html>
